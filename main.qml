@@ -23,11 +23,20 @@ ApplicationWindow {
         }
     }
 
+    Item {
+        id: toggleMainWindow
+        property bool on:false
+
+        function toggle() {
+            on = !on
+        }
+    }
+
     visible: true
     id: mainWindow
 
     Material.theme: Material.Dark
-    Material.accent: Material.DeepPurple
+    Material.accent: Material.DeepOrange
 
     width: 400
     height: 200
@@ -80,6 +89,7 @@ ApplicationWindow {
                 text: qsTr("Login")
                 onClicked: {
                     toggleLogin.toggle();
+                    toggleMainWindow.toggle();
                 }
             }
 
@@ -161,7 +171,7 @@ ApplicationWindow {
 
             Button {
                 id: registerButton_2
-                text: qsTr("Login")
+                text: qsTr("Register")
                 onClicked: {
                     toggleLogin.toggle();
                     toggleRegister.toggle();
@@ -191,6 +201,35 @@ ApplicationWindow {
                 when: !toggleRegister.on
                 PropertyChanges {
                     target: registerWidgetLayout; visible: false
+                }
+            }
+        ]
+    }
+
+    ColumnLayout {
+        id: mainLayout
+        x: 10
+        y: 10
+        width: 780
+        height: 380
+        visible: false
+
+        states: [
+            State {
+                name: "enable"
+                when: toggleMainWindow.on
+                PropertyChanges {
+                    target: mainWindow; width: 800; height: 400; x: Screen.width / 2 - width / 2; y: Screen.height / 2 - height / 2;
+                }
+                PropertyChanges {
+                    target: mainLayout; visible: true
+                }
+            },
+            State {
+                name: "disable"
+                when: !toggleMainWindow.on
+                PropertyChanges {
+                    target: mainLayout; visible: false
                 }
             }
         ]

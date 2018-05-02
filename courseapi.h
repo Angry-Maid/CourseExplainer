@@ -2,8 +2,11 @@
 #define COURSEAPI_H
 
 #include <QList>
+#include <QObject>
 #include <QString>
 #include <QDateTime>
+#include <QNetworkRequest>
+#include <QNetworkAccessManager>
 
 typedef struct {
     int id;
@@ -22,12 +25,15 @@ typedef struct {
     int userMark;
 } Regex;
 
-class CourseAPI
+class CourseAPI:
+        QObject
 {
 public:
     CourseAPI();
 
 private:
+    QNetworkAccessManager *manager;
+    QNetworkRequest request;
     int userId;
     QString token;
     QString username;
@@ -54,6 +60,9 @@ private:
     QList<Regex> getAllPosts(int limitBy, int offsetBy);
     bool updatePostRatings(int regexId, int userMark=0);
     QList<Regex> userViewsHistory();
+
+private slots:
+    void managerFinished(QNetworkReply *reply);
 
 protected:
 };
