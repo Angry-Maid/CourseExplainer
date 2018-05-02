@@ -1,6 +1,10 @@
 #ifndef COURSEAPI_H
 #define COURSEAPI_H
 
+#include <QList>
+#include <QString>
+#include <QDateTime>
+
 typedef struct {
     int id;
     QString username;
@@ -41,7 +45,7 @@ private:
     Regex getRegex(int id);
     Regex createRegex(QString expression);
     bool deleteRegex(int id);
-    pair<Regex, bool> editRegex(QString expression);
+    std::pair<Regex, bool> editRegex(QString expression);
     QList<Regex> authorPosts();
     QList<Regex> searchPosts(QString expression);
 

@@ -6,19 +6,19 @@
 CourseAPI::CourseAPI() {}
 
 bool CourseAPI::regUser(QString username, QString password) {
-    return;
+    return true;
 }
 
 bool CourseAPI::authorize(QString username, QString password) {
-    return;
+    return true;
 }
 
 bool CourseAPI::refreshToken() {
-    return;
+    return true;
 }
 
 bool CourseAPI::exitUser() {
-    return;
+    return true;
 }
 
 User CourseAPI::getUser(int id) {
@@ -40,11 +40,11 @@ Regex CourseAPI::createRegex(QString expression) {
 }
 
 bool CourseAPI::deleteRegex(int id) {
-    return;
+    return true;
 }
 
-pair<Regex, bool> CourseAPI::editRegex(QString expression) {
-    pair<Regex, bool> regexInfo;
+std::pair<Regex, bool> CourseAPI::editRegex(QString expression) {
+    std::pair<Regex, bool> regexInfo;
 
     return regexInfo;
 }
@@ -74,7 +74,7 @@ QList<Regex> CourseAPI::getAllPosts(int limitBy, int offsetBy) {
 }
 
 bool CourseAPI::updatePostRatings(int regexId, int userMark) {
-    return;
+    return true;
 }
 
 QList<Regex> CourseAPI::userViewsHistory() {
