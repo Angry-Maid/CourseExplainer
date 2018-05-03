@@ -16,10 +16,7 @@
 
 CourseAPI::CourseAPI() {
     manager = new QNetworkAccessManager();
-    /*
-    QObject::connect(manager, &QNetworkAccessManager::finished,
-                     this, SLOT(managerFinished(QNetworkReply*)));
-    *
+
     QObject::connect(manager, &QNetworkAccessManager::finished,
         this, [=](QNetworkReply *reply) {
             if (reply->error()) {
@@ -32,18 +29,6 @@ CourseAPI::CourseAPI() {
             qDebug() << answer;
         }
     );
-    */
-}
-
-void CourseAPI::managerFinished(QNetworkReply *reply) {
-    if (reply->error()) {
-        qDebug() << reply->errorString();
-        return;
-    }
-
-    QString answer = reply->readAll();
-
-    qDebug() << answer;
 }
 
 bool CourseAPI::regUser(QString username, QString password) {

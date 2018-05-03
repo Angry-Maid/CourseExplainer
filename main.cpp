@@ -2,6 +2,8 @@
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
 #include <QIcon>
+#include <QQmlContext>
+#include <QQuickView>
 
 int main(int argc, char *argv[])
 {

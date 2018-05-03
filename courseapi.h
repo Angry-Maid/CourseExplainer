@@ -8,13 +8,15 @@
 #include <QNetworkRequest>
 #include <QNetworkAccessManager>
 
-typedef struct {
+typedef struct User
+{
     int id;
     QString username;
     QString email;
 } User;
 
-typedef struct {
+typedef struct Regex
+{
     int id;
     int authorId;
     QString expression;
@@ -26,7 +28,7 @@ typedef struct {
 } Regex;
 
 class CourseAPI:
-        QObject
+        public QObject
 {
 public:
     CourseAPI();
@@ -60,9 +62,6 @@ private:
     QList<Regex> getAllPosts(int limitBy, int offsetBy);
     bool updatePostRatings(int regexId, int userMark=0);
     QList<Regex> userViewsHistory();
-
-private slots:
-    void managerFinished(QNetworkReply *reply);
 
 protected:
 };

@@ -206,13 +206,24 @@ ApplicationWindow {
         ]
     }
 
-    ColumnLayout {
+    RowLayout {
         id: mainLayout
         x: 10
-        y: 10
-        width: 780
-        height: 380
+        y: 5
+        width: 600
+        height: 75
         visible: false
+
+        TextField {
+            id: searchField
+            Layout.fillWidth: true
+            Layout.rightMargin: 15
+        }
+        Button {
+            id: searchSubmitButton
+            text: qsTr("Search")
+            Layout.rightMargin: 25
+        }
 
         states: [
             State {
@@ -230,6 +241,33 @@ ApplicationWindow {
                 when: !toggleMainWindow.on
                 PropertyChanges {
                     target: mainLayout; visible: false
+                }
+            }
+        ]
+    }
+    ColumnLayout {
+        id: mainListLayout
+        x: 10
+        y: 80
+        width: 600
+        height: 300
+        visible: false
+
+        states: [
+            State {
+                name: "enable"
+                when: toggleMainWindow.on
+                PropertyChanges {
+                    target: mainListLayout; visible: true
+
+                }
+            },
+            State {
+                name: "disable"
+                when: !toggleMainWindow.on
+                PropertyChanges {
+                    target: mainListLayout; visible: false
+
                 }
             }
         ]
