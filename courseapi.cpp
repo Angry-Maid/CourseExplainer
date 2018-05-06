@@ -13,6 +13,7 @@
 #include <QNetworkAccessManager>
 
 #include "courseapi.h"
+#include "mainwindow.h"
 
 CourseAPI::CourseAPI() {
     manager = new QNetworkAccessManager();

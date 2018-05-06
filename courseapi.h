@@ -36,11 +36,11 @@ public:
 private:
     QNetworkAccessManager *manager;
     QNetworkRequest request;
-    int userId;
-    QString token;
-    QString username;
-    QString email;
-    QString pwd;
+    static int userId;
+    static QString token;
+    static QString username;
+    static QString email;
+    static QString pwd;
 
     //User API part
     bool regUser(QString username, QString password);
