@@ -15,7 +15,7 @@ class WelcomeScreen : public QMainWindow
     Q_OBJECT
 
 public:
-    CourseAPI api = new CourseAPI();
+    CourseAPI *api = new CourseAPI();
 
     explicit WelcomeScreen(QWidget *parent = 0);
     ~WelcomeScreen();
@@ -26,6 +26,8 @@ private slots:
     void on_registerButton_clicked();
 
     void on_loginButton_clicked();
+
+    void on_registerButton_2_clicked();
 
 private:
     Ui::WelcomeScreen *ui;

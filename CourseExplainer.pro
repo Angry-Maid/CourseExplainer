@@ -28,16 +28,22 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     courseapi.cpp \
-    welcomescreen.cpp
+    welcomescreen.cpp \
+    postwindow.cpp \
+    userprofilewindow.cpp
 
 HEADERS += \
         mainwindow.h \
     courseapi.h \
-    welcomescreen.h
+    welcomescreen.h \
+    postwindow.h \
+    userprofilewindow.h
 
 FORMS += \
         mainwindow.ui \
-    welcomescreen.ui
+    welcomescreen.ui \
+    postwindow.ui \
+    userprofilewindow.ui
 
 RESOURCES += resources.qrc
 

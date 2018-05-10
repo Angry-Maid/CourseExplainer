@@ -1,12 +1,19 @@
 #ifndef COURSEAPI_H
 #define COURSEAPI_H
 
+#include <QUrl>
 #include <QList>
 #include <QObject>
+#include <QWidget>
 #include <QString>
 #include <QDateTime>
+#include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QNetworkAccessManager>
+
+namespace API {
+    static QUrl uri = QUrl("http://rabbit-solver.ru");
+}
 
 typedef struct User
 {
@@ -19,6 +26,7 @@ typedef struct Regex
 {
     int id;
     int authorId;
+    QString author;
     QString expression;
     QString explanation;
     QDateTime date;
@@ -33,9 +41,8 @@ class CourseAPI:
 public:
     CourseAPI();
 
-private:
     QNetworkAccessManager *manager;
-    QNetworkRequest request;
+
     static int userId;
     static QString token;
     static QString username;
@@ -43,7 +50,7 @@ private:
     static QString pwd;
 
     //User API part
-    bool regUser(QString username, QString password);
+    bool regUser(QString username, QString email, QString password);
     bool authorize(QString username, QString password);
     bool refreshToken();
     bool exitUser();
@@ -62,6 +69,7 @@ private:
     QList<Regex> getAllPosts(int limitBy, int offsetBy);
     bool updatePostRatings(int regexId, int userMark=0);
     QList<Regex> userViewsHistory();
+private:
 
 protected:
 };

@@ -2,9 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QStringListModeL>
+#include <QStringListModel>
 
 #include "courseapi.h"
+
+#include "postwindow.h"
+#include "userprofilewindow.h"
 
 namespace Ui {
 class MainWindow;
@@ -17,7 +20,7 @@ class MainWindow : public QMainWindow
 public:
     QStringListModel *model;
     QStringListModel *userPostsModel;
-    CourseAPI api = new CourseAPI();
+    CourseAPI *api = new CourseAPI();
 
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
@@ -28,8 +31,18 @@ public:
 private slots:
     void on_searchButton_clicked();
 
+    void on_postsView_clicked(const QModelIndex &index);
+
+    void on_userPostsView_clicked(const QModelIndex &index);
+
+    void on_logoutButton_clicked();
+
+    void on_userProfilePushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+    PostWindow *postWindow;
+    UserProfileWindow *userProfileWindow;
 };
 
 #endif // MAINWINDOW_H

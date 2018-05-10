@@ -1,14 +1,22 @@
+#include <QUrl>
 #include <QList>
+#include <QDialog>
+#include <QThread>
 #include <QObject>
 #include <QString>
+#include <QUrlQuery>
 #include <QDateTime>
+#include <QEventLoop>
 #include <QJsonValue>
 #include <QJsonArray>
+#include <QEventLoop>
+#include <QMessageBox>
 #include <QJsonObject>
 #include <QNetworkReply>
 #include <QJsonDocument>
 #include <QJsonParseError>
 #include <QNetworkRequest>
+#include <QCoreApplication>
 #include <QCryptographicHash>
 #include <QNetworkAccessManager>
 
@@ -16,23 +24,54 @@
 #include "mainwindow.h"
 
 CourseAPI::CourseAPI() {
-    manager = new QNetworkAccessManager();
-
-    QObject::connect(manager, &QNetworkAccessManager::finished,
-        this, [=](QNetworkReply *reply) {
-            if (reply->error()) {
-                qDebug() << reply->errorString();
-                return;
-            }
-
-            QString answer = reply->readAll();
-
-            qDebug() << answer;
-        }
-    );
+    manager = new QNetworkAccessManager(this);
+    connect(manager, &QNetworkAccessManager::finished,
+            this, [=](QNetworkReply *reply) {
+                qDebug() << "manager finished";
+                if (reply->error()) {
+                    qDebug() << reply->errorString();
+                    return;
+                }
+            });
 }
 
-bool CourseAPI::regUser(QString username, QString password) {
+bool CourseAPI::regUser(QString username, QString email, QString password) {
+    QUrl url = API::uri;
+    url.setPath("/users/register");
+    qDebug() << url;
+    QJsonObject jObj;
+    jObj.insert("username", username);
+    jObj.insert("user_mail", email);
+    jObj.insert("pwd", QString(QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha512).toHex()));
+
+    //TODO: generate json here
+
+    QEventLoop loop;
+
+    QNetworkRequest request(url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    request.setUrl(url);
+
+    QNetworkReply *reply = manager->post(request, QJsonDocument(jObj).toJson());
+
+    while (!reply->isFinished()) {
+        QCoreApplication::processEvents();
+    }
+
+    qDebug() << "pong";
+
+    QVariant statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
+
+    int status = statusCode.toInt();
+    qDebug() << status << statusCode;
+    if (status != 201) {
+        return false;
+    }
+
+    QJsonObject json = QJsonDocument::fromJson(reply->readAll()).object();
+    qDebug() << json;
+
+    reply->deleteLater();
     return true;
 }
 

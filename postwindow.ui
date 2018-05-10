@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PostWindow</class>
+ <widget class="QMainWindow" name="PostWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>600</width>
+    <height>400</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>600</width>
+    <height>400</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>59</y>
+      <width>581</width>
+      <height>321</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QTextBrowser" name="textBrowser">
+         <property name="html">
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:15px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;&quot;&gt;&lt;span style=&quot; font-family:'Open Sans,Arial,sans-serif'; font-size:8pt; color:#000000; background-color:#ffffff;&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non quam at tellus ornare lobortis sit amet id est. Fusce rhoncus odio ante, a mattis ipsum dignissim eu. Curabitur ultricies consequat massa, pretium rutrum ipsum. Proin porta sem feugiat posuere volutpat. Vestibulum felis dui, venenatis sit amet ornare id, dapibus sed tortor. Sed congue ante felis, id dictum massa molestie vitae. Duis mollis tempus quam, ac fermentum dolor laoreet ac.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:15px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;&quot;&gt;&lt;span style=&quot; font-family:'Open Sans,Arial,sans-serif'; font-size:8pt; color:#000000; background-color:#ffffff;&quot;&gt;Phasellus commodo faucibus imperdiet. Aliquam erat volutpat. Aenean laoreet semper metus, vel lobortis purus. Ut fermentum, risus ac interdum blandit, nisi augue tristique elit, sit amet congue mi nisi ac tellus. Nam lacus nisi, volutpat sed metus dapibus, eleifend auctor orci. Duis malesuada pellentesque mauris et tincidunt. Morbi at congue velit, ut dictum tortor. Maecenas ut blandit lorem, nec porttitor ligula. Praesent sed nisi quis justo iaculis sagittis. Nunc sit amet gravida ante.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:15px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;&quot;&gt;&lt;span style=&quot; font-family:'Open Sans,Arial,sans-serif'; font-size:8pt; color:#000000; background-color:#ffffff;&quot;&gt;Praesent nunc erat, porttitor a lacinia ultrices, pellentesque vel ante. Vivamus porta, urna id vestibulum sollicitudin, est sapien elementum odio, vel iaculis lacus justo at orci. Pellentesque bibendum luctus metus ut pellentesque. Nam a nunc vehicula, dapibus dolor ut, convallis dolor. Etiam sit amet neque elit. Cras sodales id arcu at iaculis. Curabitur vehicula, tellus a commodo aliquet, lacus nunc faucibus lorem, vel aliquet quam dolor sed leo. Phasellus porttitor est non orci congue viverra.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:15px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;&quot;&gt;&lt;span style=&quot; font-family:'Open Sans,Arial,sans-serif'; font-size:8pt; color:#000000; background-color:#ffffff;&quot;&gt;Vivamus dictum, orci placerat efficitur vehicula, leo nunc efficitur eros, et feugiat quam neque nec turpis. Quisque leo erat, pharetra nec pharetra at, congue eu orci. Maecenas facilisis leo ac erat rhoncus molestie. Etiam vitae suscipit arcu. Cras eget eros pulvinar, porta massa vel, egestas mi. In in scelerisque libero. Maecenas fermentum nulla quis varius lobortis. Sed eu tortor ut orci sollicitudin ornare. Duis id mauris tristique, blandit mi placerat, euismod ipsum. Maecenas volutpat, metus vitae laoreet commodo, libero nibh fermentum quam, nec blandit justo libero non erat. Etiam bibendum, velit ut tincidunt sodales, ante augue tincidunt nunc, eget tincidunt mauris neque a eros. Sed sit amet nisl turpis. Nunc nec ultrices tortor. Fusce dignissim sollicitudin sem, vel tempus magna varius condimentum.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:15px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;&quot;&gt;&lt;span style=&quot; font-family:'Open Sans,Arial,sans-serif'; font-size:8pt; color:#000000; background-color:#ffffff;&quot;&gt;Suspendisse volutpat purus ut erat fringilla, vel malesuada nisi suscipit. Nunc eget accumsan turpis. Nam molestie orci id aliquam egestas. Praesent eget eros lacus. Praesent dapibus ut arcu sed porta. In pellentesque accumsan diam, et egestas augue dictum rhoncus. Nulla a enim euismod, gravida lorem eget, malesuada quam. Maecenas vitae accumsan leo. Suspendisse varius sapien a lacus dapibus, imperdiet volutpat purus dignissim.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <layout class="QFormLayout" name="formLayout">
+             <property name="labelAlignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="formAlignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="horizontalSpacing">
+              <number>2</number>
+             </property>
+             <property name="verticalSpacing">
+              <number>3</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>Author: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="authorLabel">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_3">
+               <property name="text">
+                <string>Views: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="viewsLabel">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>Rating:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLabel" name="ratingEdit">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QComboBox" name="markBox"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton">
+             <property name="text">
+              <string>Submit Mark</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="deleteButton">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Delete</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="closeButton">
+             <property name="text">
+              <string>Close</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>9</y>
+      <width>581</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <widget class="QTextBrowser" name="regex">
+       <property name="html">
+        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Consolas';&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
