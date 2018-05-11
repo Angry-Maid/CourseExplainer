@@ -5,6 +5,7 @@
 #include <QStringListModel>
 
 #include "postwindow.h"
+#include "courseapi.h"
 
 namespace Ui {
 class UserProfileWindow;
@@ -17,6 +18,12 @@ class UserProfileWindow : public QMainWindow
 public:
     QStringListModel *postsModel;
     QStringListModel *historyModel;
+
+    CourseAPI *api;
+
+    void setApi(CourseAPI*);
+
+    void setUserInfo();
 
     explicit UserProfileWindow(QWidget *parent = 0);
     ~UserProfileWindow();

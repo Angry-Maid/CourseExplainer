@@ -2,6 +2,7 @@
 #define COURSEAPI_H
 
 #include <QUrl>
+#include <QChar>
 #include <QList>
 #include <QObject>
 #include <QWidget>
@@ -12,26 +13,26 @@
 #include <QNetworkAccessManager>
 
 namespace API {
-    static QUrl uri = QUrl("http://rabbit-solver.ru");
+    const QUrl uri = QUrl("http://rabbit-solver.ru");
 }
 
-typedef struct User
+typedef struct
 {
     int id;
     QString username;
     QString email;
 } User;
 
-typedef struct Regex
+typedef struct
 {
     int id;
     int authorId;
     QString author;
     QString expression;
     QString explanation;
-    QDateTime date;
+    QString date;
     int views;
-    int avgMark;
+    double avgMark;
     int userMark;
 } Regex;
 
@@ -43,32 +44,36 @@ public:
 
     QNetworkAccessManager *manager;
 
-    static int userId;
-    static QString token;
-    static QString username;
-    static QString email;
-    static QString pwd;
+    int userId;
+    QString token;
+    QString username;
+    QString email;
 
     //User API part
     bool regUser(QString username, QString email, QString password);
     bool authorize(QString username, QString password);
     bool refreshToken();
     bool exitUser();
-    User getUser(int id);
+    std::pair<User, bool> getUser(int id);
 
     //Regex API part
-    Regex getRegex(int id);
-    Regex createRegex(QString expression);
+    std::pair<Regex, bool> getRegex(int id);
+    std::pair<Regex, bool> createRegex(QString expression);
     bool deleteRegex(int id);
-    std::pair<Regex, bool> editRegex(QString expression);
+    std::pair<Regex, bool> editRegex(QString expression, int id);
     QList<Regex> authorPosts();
     QList<Regex> searchPosts(QString expression);
 
     //Rating API part
-    Regex getRating(int regexId);
-    QList<Regex> getAllPosts(int limitBy, int offsetBy);
+    std::pair<Regex, bool> getRating(int regexId);
+    QList<Regex> getAllPosts(int limitBy=20, int offsetBy=0);
     bool updatePostRatings(int regexId, int userMark=0);
     QList<Regex> userViewsHistory();
+
+
+
+    QString GetRandomString(int len=24) const;
+
 private:
 
 protected:

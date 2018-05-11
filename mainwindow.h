@@ -20,13 +20,16 @@ class MainWindow : public QMainWindow
 public:
     QStringListModel *model;
     QStringListModel *userPostsModel;
-    CourseAPI *api = new CourseAPI();
+    CourseAPI *api;
+
+    void setApi(CourseAPI*);
 
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
 
     void setUsername(QString username, QString email);
+    void loadPosts();
 
 private slots:
     void on_searchButton_clicked();
@@ -38,6 +41,10 @@ private slots:
     void on_logoutButton_clicked();
 
     void on_userProfilePushButton_clicked();
+
+    void on_returnButton_clicked();
+
+    void on_createButton_clicked();
 
 private:
     Ui::MainWindow *ui;

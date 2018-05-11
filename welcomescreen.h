@@ -15,7 +15,9 @@ class WelcomeScreen : public QMainWindow
     Q_OBJECT
 
 public:
-    CourseAPI *api = new CourseAPI();
+    CourseAPI *api;
+
+    void setApi(CourseAPI*);
 
     explicit WelcomeScreen(QWidget *parent = 0);
     ~WelcomeScreen();
