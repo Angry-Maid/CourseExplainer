@@ -50,7 +50,7 @@ public:
     QString email;
 
     //User API part
-    bool regUser(QString username, QString email, QString password);
+    int regUser(QString username, QString email, QString password);
     bool authorize(QString username, QString password);
     bool refreshToken();
     bool exitUser();
@@ -58,7 +58,7 @@ public:
 
     //Regex API part
     std::pair<Regex, bool> getRegex(int id);
-    std::pair<Regex, bool> createRegex(QString expression);
+    std::pair<Regex, int> createRegex(QString expression);
     bool deleteRegex(int id);
     std::pair<Regex, bool> editRegex(QString expression, int id);
     QList<Regex> authorPosts();

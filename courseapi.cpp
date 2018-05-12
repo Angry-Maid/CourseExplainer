@@ -48,7 +48,7 @@ QString CourseAPI::GetRandomString(int len) const {
     return randomString;
 }
 
-bool CourseAPI::regUser(QString username, QString email, QString password) {
+int CourseAPI::regUser(QString username, QString email, QString password) {
     QUrl url = API::uri;
     url.setPath("/users/register");
     qDebug() << url;
@@ -71,8 +71,13 @@ bool CourseAPI::regUser(QString username, QString email, QString password) {
 
     int status = statusCode.toInt();
     qDebug() << status << statusCode;
+
+    if (status == 400) {
+        return 2;
+    }
+
     if (status != 201) {
-        return false;
+        return 0;
     }
 
     QJsonObject json = QJsonDocument::fromJson(reply->readAll()).object();
@@ -80,7 +85,7 @@ bool CourseAPI::regUser(QString username, QString email, QString password) {
 
     loop.deleteLater();
     reply->deleteLater();
-    return true;
+    return 1;
 }
 
 bool CourseAPI::authorize(QString username, QString password) {
@@ -261,7 +266,7 @@ std::pair<Regex, bool> CourseAPI::getRegex(int id) {
     return std::make_pair(regex, true);
 }
 
-std::pair<Regex, bool> CourseAPI::createRegex(QString expression) {
+std::pair<Regex, int> CourseAPI::createRegex(QString expression) {
     Regex regex;
     regex.expression = expression;
 
@@ -286,16 +291,21 @@ std::pair<Regex, bool> CourseAPI::createRegex(QString expression) {
     int status = statusCode.toInt();
     qDebug() << status << statusCode;
 
-    if (status != 200) {
-        return std::make_pair(regex, false);
+    if (status == 404) {
+        return std::make_pair(regex, 2);
     }
+
+    if (status != 200) {
+        return std::make_pair(regex, 0);
+    }
+
 
     QJsonObject json = QJsonDocument::fromJson(reply->readAll()).object();
     regex.id = json["id"].toInt();
     regex.explanation = json["explanation"].toString();
     regex.author = this->username;
 
-    return std::make_pair(regex, true);
+    return std::make_pair(regex, 1);
 }
 
 bool CourseAPI::deleteRegex(int id) {

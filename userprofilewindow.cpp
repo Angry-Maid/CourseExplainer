@@ -26,7 +26,7 @@ void UserProfileWindow::setApi(CourseAPI *api) {
     ui->usernameLabel->setText(api->username);
 }
 
-void UserProfileWindow::setUserInfo() {
+void UserProfileWindow::loadPosts() {
     QStringList userPosts;
     QList<Regex> apiUserPosts = api->authorPosts();
 
@@ -58,6 +58,7 @@ void UserProfileWindow::on_postsView_clicked(const QModelIndex &index)
     ui->postsView->clearSelection();
     qDebug() << text;
     postWindow = new PostWindow(this);
+    postWindow->setApi(api);
     postWindow->setWindowTitle(text);
     postWindow->setPostInfo(text);
     postWindow->show();
@@ -69,7 +70,13 @@ void UserProfileWindow::on_historyView_clicked(const QModelIndex &index)
     ui->historyView->clearSelection();
     qDebug() << text;
     postWindow = new PostWindow(this);
+    postWindow->setApi(api);
     postWindow->setWindowTitle(text);
     postWindow->setPostInfo(text);
     postWindow->show();
+}
+
+void UserProfileWindow::on_updateButton_clicked()
+{
+    this->loadPosts();
 }

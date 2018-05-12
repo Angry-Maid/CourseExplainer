@@ -81,19 +81,30 @@ void WelcomeScreen::on_registerButton_2_clicked()
                              QMessageBox::NoButton);
         return;
     }
-    bool res = api->regUser(login, email, pwd);
+    int res = api->regUser(login, email, pwd);
     qDebug() << "pong" << res;
-    if (res) {
+    if (res == 1) {
         ui->loginEdit_2->setText("");
         ui->emailEdit_2->setText("");
         ui->passwordEdit_2->setText("");
         ui->registerWidget->hide();
         ui->loginWidget->show();
     } else {
-        QMessageBox::warning(this,
-                             tr("Register"),
-                             tr("Unable to create user.\nUsername or email already in use.\n"),
-                             QMessageBox::Ok | QMessageBox::Escape,
-                             QMessageBox::NoButton);
+        switch (res) {
+            case 0: {
+                QMessageBox::warning(this,
+                                     tr("Register"),
+                                     tr("Unable to create user.\nUsername or email already in use.\n"),
+                                     QMessageBox::Ok | QMessageBox::Escape,
+                                     QMessageBox::NoButton);
+            }
+            case 2: {
+                QMessageBox::warning(this,
+                                     tr("Register"),
+                                     tr("Invalid email"),
+                                     QMessageBox::Ok | QMessageBox::Escape,
+                                     QMessageBox::NoButton);
+            }
+        }
     }
 }

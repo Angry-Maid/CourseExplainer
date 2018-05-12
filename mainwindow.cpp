@@ -126,7 +126,7 @@ void MainWindow::on_userProfilePushButton_clicked()
     userProfileWindow = new UserProfileWindow(this);
     userProfileWindow->setApi(this->api);
     userProfileWindow->setWindowTitle(text);
-    userProfileWindow->setUserInfo();
+    userProfileWindow->loadPosts();
     userProfileWindow->show();
 }
 
@@ -143,14 +143,26 @@ void MainWindow::on_createButton_clicked()
         return;
     }
 
-    std::pair<Regex, bool> answer = api->createRegex(text);
-    if (!answer.second) {
-        QMessageBox::information(this,
-                                 tr("Regex"),
-                                 tr("Incorrect expression."),
-                                 QMessageBox::Ok | QMessageBox::Escape,
-                                 QMessageBox::NoButton);
-        return;
+    std::pair<Regex, int> answer = api->createRegex(text);
+    if (answer.second != 1) {
+        switch (answer.second) {
+            case 0: {
+                QMessageBox::information(this,
+                                        tr("Regex"),
+                                        tr("Incorrect expression."),
+                                        QMessageBox::Ok | QMessageBox::Escape,
+                                        QMessageBox::NoButton);
+                return;
+            }
+            case 2: {
+                QMessageBox::information(this,
+                                        tr("Regex"),
+                                        tr("Expression already exists."),
+                                        QMessageBox::Ok | QMessageBox::Escape,
+                                        QMessageBox::NoButton);
+                return;
+            }
+        }
     }
     this->loadPosts();
 }

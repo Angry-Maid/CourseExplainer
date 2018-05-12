@@ -23,7 +23,7 @@ public:
 
     void setApi(CourseAPI*);
 
-    void setUserInfo();
+    void loadPosts();
 
     explicit UserProfileWindow(QWidget *parent = 0);
     ~UserProfileWindow();
@@ -32,6 +32,8 @@ private slots:
     void on_postsView_clicked(const QModelIndex &index);
 
     void on_historyView_clicked(const QModelIndex &index);
+
+    void on_updateButton_clicked();
 
 private:
     Ui::UserProfileWindow *ui;
