@@ -1,5 +1,6 @@
 #include <QRegExp>
 #include <QString>
+#include <QMessageBox>
 
 #include "postwindow.h"
 #include "ui_postwindow.h"
@@ -14,7 +15,6 @@ PostWindow::PostWindow(QWidget *parent) :
     for (int i = 1; i <= 5; i++){
         ui->markBox->addItem(QString::number(i));
     }
-    //ui->textBrowser->setPlainText();
 }
 
 PostWindow::~PostWindow()
@@ -91,6 +91,14 @@ void PostWindow::on_pushButton_clicked()
 
 void PostWindow::on_deleteButton_clicked()
 {
+    if (api->userId == 1) {
+        QMessageBox::information(this,
+                                tr("Regex"),
+                                tr("Anonymous user cannot delete created expressions."),
+                                QMessageBox::Ok | QMessageBox::Escape,
+                                QMessageBox::NoButton);
+        return;
+    }
     bool res = api->deleteRegex(postId);
     if (res) {
         this->close();

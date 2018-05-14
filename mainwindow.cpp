@@ -67,8 +67,10 @@ void MainWindow::loadPosts() {
 
 void MainWindow::on_searchButton_clicked()
 {
+    ui->searchButton->setEnabled(false);
     QString text = ui->searchEdit->text();
     if (text.isEmpty()) {
+        ui->searchButton->setEnabled(true);
         return;
     }
     ui->returnButton->setEnabled(true);
@@ -84,6 +86,7 @@ void MainWindow::on_searchButton_clicked()
     ui->postsView->setModel(model);
 
     ui->searchEdit->clear();
+    ui->searchButton->setEnabled(true);
 }
 
 void MainWindow::on_postsView_clicked(const QModelIndex &index)
@@ -138,8 +141,10 @@ void MainWindow::on_returnButton_clicked()
 
 void MainWindow::on_createButton_clicked()
 {
+    ui->createButton->setEnabled(false);
     QString text = ui->searchEdit->text();
     if (text.isEmpty()) {
+        ui->createButton->setEnabled(true);
         return;
     }
 
@@ -152,6 +157,7 @@ void MainWindow::on_createButton_clicked()
                                         tr("Incorrect expression."),
                                         QMessageBox::Ok | QMessageBox::Escape,
                                         QMessageBox::NoButton);
+                ui->createButton->setEnabled(true);
                 return;
             }
             case 2: {
@@ -160,9 +166,19 @@ void MainWindow::on_createButton_clicked()
                                         tr("Expression already exists."),
                                         QMessageBox::Ok | QMessageBox::Escape,
                                         QMessageBox::NoButton);
+                ui->createButton->setEnabled(true);
                 return;
             }
         }
     }
     this->loadPosts();
+    ui->searchEdit->setText("");
+    ui->createButton->setEnabled(true);
+}
+
+void MainWindow::on_refreshButton_clicked()
+{
+    ui->refreshButton->setEnabled(false);
+    this->loadPosts();
+    ui->refreshButton->setEnabled(true);
 }

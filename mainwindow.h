@@ -46,6 +46,8 @@ private slots:
 
     void on_createButton_clicked();
 
+    void on_refreshButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     PostWindow *postWindow;

@@ -1,5 +1,6 @@
-#include <QVariant>
+#include <QRegExp>
 #include <QDialog>
+#include <QVariant>
 #include <QJsonObject>
 #include <QMessageBox>
 #include <QNetworkReply>
@@ -40,6 +41,7 @@ void WelcomeScreen::on_registerButton_clicked()
 
 void WelcomeScreen::on_loginButton_clicked()
 {
+    ui->loginButton->setEnabled(false);
     QString login = ui->loginEdit->text();
     QString password = ui->passwordEdit->text();
     if (login.isEmpty() || password.isEmpty()) {
@@ -48,6 +50,7 @@ void WelcomeScreen::on_loginButton_clicked()
                              tr("Not all fields were filled."),
                              QMessageBox::Ok | QMessageBox::Escape,
                              QMessageBox::NoButton);
+        ui->loginButton->setEnabled(true);
         return;
     }
 
@@ -58,6 +61,7 @@ void WelcomeScreen::on_loginButton_clicked()
         mainWindow.setApi(this->api);
         mainWindow.setUsername(api->username, api->email);
         mainWindow.loadPosts();
+        ui->loginButton->setEnabled(true);
         this->close();
     } else {
         QMessageBox::warning(this,
@@ -65,11 +69,13 @@ void WelcomeScreen::on_loginButton_clicked()
                              tr("Unable to login.\nUsername or password are incorrect.\n"),
                              QMessageBox::Ok | QMessageBox::Escape,
                              QMessageBox::NoButton);
+        ui->loginButton->setEnabled(true);
     }
 }
 
 void WelcomeScreen::on_registerButton_2_clicked()
 {
+    ui->registerButton_2->setEnabled(false);
     QString login = ui->loginEdit_2->text();
     QString email = ui->emailEdit_2->text();
     QString pwd = ui->passwordEdit_2->text();
@@ -79,6 +85,48 @@ void WelcomeScreen::on_registerButton_2_clicked()
                              tr("Not all fields were filled."),
                              QMessageBox::Ok | QMessageBox::Escape,
                              QMessageBox::NoButton);
+        ui->registerButton_2->setEnabled(true);
+        return;
+    }
+    int pos;
+    QRegExp rx("^[^\\s]+$");
+    pos = rx.indexIn(login);
+    if (pos < 0) {
+        QMessageBox::warning(this,
+                             tr("Register"),
+                             tr("Username incorrect."),
+                             QMessageBox::Ok | QMessageBox::Escape,
+                             QMessageBox::NoButton);
+        ui->registerButton_2->setEnabled(true);
+        return;
+    }
+    pos = rx.indexIn(pwd);
+    if (pos < 0) {
+        QMessageBox::warning(this,
+                             tr("Register"),
+                             tr("Password incorrect."),
+                             QMessageBox::Ok | QMessageBox::Escape,
+                             QMessageBox::NoButton);
+        ui->registerButton_2->setEnabled(true);
+        return;
+    }
+    qDebug() << login.length() << pwd.length();
+    if (!((login.length() >= 5) && (login.length() <= 35))) {
+        QMessageBox::warning(this,
+                             tr("Register"),
+                             tr("Username or password have incorrect length.\nUsername length between 5 and 35."),
+                             QMessageBox::Ok | QMessageBox::Escape,
+                             QMessageBox::NoButton);
+        ui->registerButton_2->setEnabled(true);
+        return;
+    }
+    if (!((pwd.length() >= 5) && (pwd.length() <= 60))) {
+        QMessageBox::warning(this,
+                             tr("Register"),
+                             tr("Username or password have incorrect length.\nPassword length between 5 and 60."),
+                             QMessageBox::Ok | QMessageBox::Escape,
+                             QMessageBox::NoButton);
+        ui->registerButton_2->setEnabled(true);
         return;
     }
     int res = api->regUser(login, email, pwd);
@@ -87,6 +135,7 @@ void WelcomeScreen::on_registerButton_2_clicked()
         ui->loginEdit_2->setText("");
         ui->emailEdit_2->setText("");
         ui->passwordEdit_2->setText("");
+        ui->registerButton_2->setEnabled(true);
         ui->registerWidget->hide();
         ui->loginWidget->show();
     } else {
@@ -97,6 +146,7 @@ void WelcomeScreen::on_registerButton_2_clicked()
                                      tr("Unable to create user.\nUsername or email already in use.\n"),
                                      QMessageBox::Ok | QMessageBox::Escape,
                                      QMessageBox::NoButton);
+                ui->registerButton_2->setEnabled(true);
             }
             case 2: {
                 QMessageBox::warning(this,
@@ -104,6 +154,7 @@ void WelcomeScreen::on_registerButton_2_clicked()
                                      tr("Invalid email"),
                                      QMessageBox::Ok | QMessageBox::Escape,
                                      QMessageBox::NoButton);
+                ui->registerButton_2->setEnabled(true);
             }
         }
     }

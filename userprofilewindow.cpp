@@ -78,5 +78,7 @@ void UserProfileWindow::on_historyView_clicked(const QModelIndex &index)
 
 void UserProfileWindow::on_updateButton_clicked()
 {
+    ui->updateButton->setEnabled(false);
     this->loadPosts();
+    ui->updateButton->setEnabled(true);
 }
