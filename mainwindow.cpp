@@ -184,6 +184,15 @@ void MainWindow::on_createButton_clicked()
         ui->createButton->setEnabled(true);
         return;
     }
+    if (text.length() > 256) {
+        QMessageBox::warning(this,
+                             tr("Regex"),
+                             tr("Maximum length limit - 255."),
+                             QMessageBox::Ok | QMessageBox::Escape,
+                             QMessageBox::NoButton);
+        ui->createButton->setEnabled(true);
+        return;
+    }
 
     std::pair<Regex, int> answer = api->createRegex(text);
     if (answer.second != 1) {
