@@ -36,7 +36,7 @@ CourseAPI::CourseAPI() {
 }
 
 bool CourseAPI::checkAviability() {
-    QUrl url = QUrl("https://google.com");
+    QUrl url = QUrl("http://google.com");
 
     QEventLoop loop;
     QNetworkRequest request(url);
