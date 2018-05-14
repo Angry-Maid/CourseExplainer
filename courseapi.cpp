@@ -35,6 +35,24 @@ CourseAPI::CourseAPI() {
             });
 }
 
+bool CourseAPI::checkAviability() {
+    QUrl url = QUrl("https://google.com");
+
+    QEventLoop loop;
+    QNetworkRequest request(url);
+
+    connect(manager, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
+
+    QNetworkReply *reply = manager->get(request);
+
+    loop.exec();
+
+    if (reply->bytesAvailable()) {
+        return true;
+    }
+    return false;
+}
+
 QString CourseAPI::GetRandomString(int len) const {
     const QString possibleCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
 

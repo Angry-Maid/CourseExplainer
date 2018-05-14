@@ -22,6 +22,8 @@ public:
     QStringListModel *userPostsModel;
     CourseAPI *api;
 
+    QString searchText;
+
     void setApi(CourseAPI*);
 
     explicit MainWindow(QWidget *parent = 0);

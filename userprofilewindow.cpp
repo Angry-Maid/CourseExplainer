@@ -1,3 +1,4 @@
+#include <QMessageBox>
 #include <QStringList>
 #include <QStringListModel>
 
@@ -27,6 +28,15 @@ void UserProfileWindow::setApi(CourseAPI *api) {
 }
 
 void UserProfileWindow::loadPosts() {
+    bool resp = api->checkAviability();
+    if (!resp) {
+        QMessageBox::warning(this,
+                             tr("Internet Connection"),
+                             tr("There is no internet connection."),
+                             QMessageBox::Ok | QMessageBox::Escape,
+                             QMessageBox::NoButton);
+        return;
+    }
     QStringList userPosts;
     QList<Regex> apiUserPosts = api->authorPosts();
 

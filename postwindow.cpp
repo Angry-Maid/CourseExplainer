@@ -28,6 +28,15 @@ void PostWindow::setApi(CourseAPI *api) {
 
 void PostWindow::setPostInfo(QString regex)
 {
+    bool resp = api->checkAviability();
+    if (!resp) {
+        QMessageBox::warning(this,
+                             tr("Internet Connection"),
+                             tr("There is no internet connection."),
+                             QMessageBox::Ok | QMessageBox::Escape,
+                             QMessageBox::NoButton);
+        return;
+    }
     QRegExp rx("(\\d+) \\|.*");
     int pos = rx.indexIn(regex);
     postId = 0;
@@ -59,6 +68,15 @@ void PostWindow::setPostInfo(QString regex)
 }
 
 void PostWindow::updatePost() {
+    bool resp = api->checkAviability();
+    if (!resp) {
+        QMessageBox::warning(this,
+                             tr("Internet Connection"),
+                             tr("There is no internet connection."),
+                             QMessageBox::Ok | QMessageBox::Escape,
+                             QMessageBox::NoButton);
+        return;
+    }
     std::pair<Regex, bool> answer = api->getRating(postId);
     if (!answer.second) {
         this->close();
@@ -82,6 +100,15 @@ void PostWindow::on_pushButton_clicked()
     if (s.isEmpty()) {
         return;
     }
+    bool resp = api->checkAviability();
+    if (!resp) {
+        QMessageBox::warning(this,
+                             tr("Internet Connection"),
+                             tr("There is no internet connection."),
+                             QMessageBox::Ok | QMessageBox::Escape,
+                             QMessageBox::NoButton);
+        return;
+    }
     bool res = api->updatePostRatings(postId, s.toInt());
     if (!res) {
         return;
@@ -97,6 +124,15 @@ void PostWindow::on_deleteButton_clicked()
                                 tr("Anonymous user cannot delete created expressions."),
                                 QMessageBox::Ok | QMessageBox::Escape,
                                 QMessageBox::NoButton);
+        return;
+    }
+    bool resp = api->checkAviability();
+    if (!resp) {
+        QMessageBox::warning(this,
+                             tr("Internet Connection"),
+                             tr("There is no internet connection."),
+                             QMessageBox::Ok | QMessageBox::Escape,
+                             QMessageBox::NoButton);
         return;
     }
     bool res = api->deleteRegex(postId);

@@ -49,6 +49,8 @@ public:
     QString username;
     QString email;
 
+    bool checkAviability();
+
     //User API part
     int regUser(QString username, QString email, QString password);
     bool authorize(QString username, QString password);

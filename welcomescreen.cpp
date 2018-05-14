@@ -42,6 +42,16 @@ void WelcomeScreen::on_registerButton_clicked()
 void WelcomeScreen::on_loginButton_clicked()
 {
     ui->loginButton->setEnabled(false);
+    bool resp = api->checkAviability();
+    if (!resp) {
+        QMessageBox::warning(this,
+                             tr("Internet Connection"),
+                             tr("There is no internet connection."),
+                             QMessageBox::Ok | QMessageBox::Escape,
+                             QMessageBox::NoButton);
+        ui->loginButton->setEnabled(true);
+        return;
+    }
     QString login = ui->loginEdit->text();
     QString password = ui->passwordEdit->text();
     if (login.isEmpty() || password.isEmpty()) {
@@ -76,6 +86,16 @@ void WelcomeScreen::on_loginButton_clicked()
 void WelcomeScreen::on_registerButton_2_clicked()
 {
     ui->registerButton_2->setEnabled(false);
+    bool resp = api->checkAviability();
+    if (!resp) {
+        QMessageBox::warning(this,
+                             tr("Internet Connection"),
+                             tr("There is no internet connection."),
+                             QMessageBox::Ok | QMessageBox::Escape,
+                             QMessageBox::NoButton);
+        ui->registerButton_2->setEnabled(true);
+        return;
+    }
     QString login = ui->loginEdit_2->text();
     QString email = ui->emailEdit_2->text();
     QString pwd = ui->passwordEdit_2->text();

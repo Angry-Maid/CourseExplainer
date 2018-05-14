@@ -20,13 +20,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     model = new QStringListModel(this);
     userPostsModel = new QStringListModel(this);
-
-    QStringList userPosts;
-    userPosts << "([A-Za-z]+)" << "\\[.+?\\]";
-
-    userPostsModel->setStringList(userPosts);
-
-    ui->userPostsView->setModel(userPostsModel);
 }
 
 MainWindow::~MainWindow()
@@ -45,6 +38,15 @@ void MainWindow::setUsername(QString username, QString email) {
 
 void MainWindow::loadPosts() {
     QStringList posts;
+    bool resp = api->checkAviability();
+    if (!resp) {
+        QMessageBox::warning(this,
+                             tr("Internet Connection"),
+                             tr("There is no internet connection."),
+                             QMessageBox::Ok | QMessageBox::Escape,
+                             QMessageBox::NoButton);
+        return;
+    }
     QList<Regex> apiPosts = api->getAllPosts();
 
     foreach (Regex r, apiPosts) {
@@ -68,11 +70,22 @@ void MainWindow::loadPosts() {
 void MainWindow::on_searchButton_clicked()
 {
     ui->searchButton->setEnabled(false);
+    bool resp = api->checkAviability();
+    if (!resp) {
+        QMessageBox::warning(this,
+                             tr("Internet Connection"),
+                             tr("There is no internet connection."),
+                             QMessageBox::Ok | QMessageBox::Escape,
+                             QMessageBox::NoButton);
+        ui->searchButton->setEnabled(true);
+        return;
+    }
     QString text = ui->searchEdit->text();
     if (text.isEmpty()) {
         ui->searchButton->setEnabled(true);
         return;
     }
+    this->searchText = text;
     ui->returnButton->setEnabled(true);
 
     QStringList posts;
@@ -116,10 +129,22 @@ void MainWindow::on_userPostsView_clicked(const QModelIndex &index)
 
 void MainWindow::on_logoutButton_clicked()
 {
+    ui->logoutButton->setEnabled(false);
+    bool resp = api->checkAviability();
+    if (!resp) {
+        QMessageBox::warning(this,
+                             tr("Internet Connection"),
+                             tr("There is no internet connection."),
+                             QMessageBox::Ok | QMessageBox::Escape,
+                             QMessageBox::NoButton);
+        ui->logoutButton->setEnabled(true);
+        return;
+    }
     api->exitUser();
     WelcomeScreen *wScreen = new WelcomeScreen();
     wScreen->setApi(this->api);
     wScreen->show();
+    ui->logoutButton->setEnabled(true);
     this->close();
 }
 
@@ -136,12 +161,24 @@ void MainWindow::on_userProfilePushButton_clicked()
 void MainWindow::on_returnButton_clicked()
 {
     ui->returnButton->setEnabled(false);
+    this->searchText = QString("");
     this->loadPosts();
 }
 
 void MainWindow::on_createButton_clicked()
 {
     ui->createButton->setEnabled(false);
+    bool resp = api->checkAviability();
+    if (!resp) {
+        QMessageBox::warning(this,
+                             tr("Internet Connection"),
+                             tr("There is no internet connection."),
+                             QMessageBox::Ok | QMessageBox::Escape,
+                             QMessageBox::NoButton);
+        ui->createButton->setEnabled(true);
+        return;
+    }
+
     QString text = ui->searchEdit->text();
     if (text.isEmpty()) {
         ui->createButton->setEnabled(true);
@@ -153,19 +190,19 @@ void MainWindow::on_createButton_clicked()
         switch (answer.second) {
             case 0: {
                 QMessageBox::information(this,
-                                        tr("Regex"),
-                                        tr("Incorrect expression."),
-                                        QMessageBox::Ok | QMessageBox::Escape,
-                                        QMessageBox::NoButton);
+                                         tr("Regex"),
+                                         tr("Incorrect expression."),
+                                         QMessageBox::Ok | QMessageBox::Escape,
+                                         QMessageBox::NoButton);
                 ui->createButton->setEnabled(true);
                 return;
             }
             case 2: {
                 QMessageBox::information(this,
-                                        tr("Regex"),
-                                        tr("Expression already exists."),
-                                        QMessageBox::Ok | QMessageBox::Escape,
-                                        QMessageBox::NoButton);
+                                         tr("Regex"),
+                                         tr("Expression already exists."),
+                                         QMessageBox::Ok | QMessageBox::Escape,
+                                         QMessageBox::NoButton);
                 ui->createButton->setEnabled(true);
                 return;
             }
@@ -179,6 +216,31 @@ void MainWindow::on_createButton_clicked()
 void MainWindow::on_refreshButton_clicked()
 {
     ui->refreshButton->setEnabled(false);
-    this->loadPosts();
+    bool resp = api->checkAviability();
+    if (!resp) {
+        QMessageBox::warning(this,
+                             tr("Internet Connection"),
+                             tr("There is no internet connection."),
+                             QMessageBox::Ok | QMessageBox::Escape,
+                             QMessageBox::NoButton);
+        ui->refreshButton->setEnabled(true);
+        return;
+    }
+    if (this->searchText.isEmpty()) {
+        this->loadPosts();
+    } else {
+        QStringList posts;
+        QList<Regex> apiSearch = api->searchPosts(this->searchText);
+
+        foreach (Regex r, apiSearch) {
+            posts.append(QString("%1 | %2 | Views: %3 Mark: %4 | Created: %5").arg(QString::number(r.id), r.expression, QString::number(r.views), QString::number(r.avgMark), r.date));
+        }
+
+        model->setStringList(posts);
+        ui->postsView->setModel(model);
+
+        ui->searchEdit->clear();
+    }
+
     ui->refreshButton->setEnabled(true);
 }
