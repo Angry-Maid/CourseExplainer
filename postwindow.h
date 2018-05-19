@@ -24,6 +24,7 @@ public:
     explicit PostWindow(QWidget *parent = 0);
     ~PostWindow();
 
+    void loadPostInfo(int id);
     void setPostInfo(QString regex);
 
     void updatePost();

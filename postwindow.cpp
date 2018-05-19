@@ -26,6 +26,37 @@ void PostWindow::setApi(CourseAPI *api) {
     this->api = api;
 }
 
+void PostWindow::loadPostInfo(int id) {
+    bool resp = api->checkAviability();
+    if (!resp) {
+        QMessageBox::warning(this,
+                             tr("Internet Connection"),
+                             tr("There is no internet connection."),
+                             QMessageBox::Ok | QMessageBox::Escape,
+                             QMessageBox::NoButton);
+        return;
+    }
+
+    bool res = api->updatePostRatings(id);
+
+    std::pair<Regex, bool> answer = api->getRating(id);
+    if (!answer.second) {
+        this->close();
+    }
+    this->setWindowTitle(answer.first.expression);
+    ui->textBrowser->setText(answer.first.explanation);
+    ui->regex->setText(answer.first.expression);
+    ui->authorLabel->setText(answer.first.author);
+    ui->viewsLabel->setText(QString::number(answer.first.views));
+    ui->ratingLabel->setText(QString::number(answer.first.avgMark));
+
+    qDebug() << answer.first.authorId << api->userId;
+
+    if (answer.first.authorId == api->userId) {
+        ui->deleteButton->setEnabled(true);
+    }
+}
+
 void PostWindow::setPostInfo(QString regex)
 {
     bool resp = api->checkAviability();

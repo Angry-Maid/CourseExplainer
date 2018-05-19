@@ -220,6 +220,11 @@ void MainWindow::on_createButton_clicked()
     this->loadPosts();
     ui->searchEdit->setText("");
     ui->createButton->setEnabled(true);
+
+    postWindow = new PostWindow(this);
+    postWindow->setApi(api);
+    postWindow->loadPostInfo(answer.first.id);
+    postWindow->show();
 }
 
 void MainWindow::on_refreshButton_clicked()
